@@ -1,57 +1,50 @@
 @extends('layouts.app')
 
-@section('title', 'Lista progetti')
+@section('title', 'Lista tipi di stack')
 
 
 @section('content')
     <table class="table table-striped">
-        <a class="btn btn-primary my-3" href="{{ route('admin.projects.create') }}">Aggiungi progetto</a>
+        <a class="btn btn-primary my-3" href="{{ route('admin.types.create') }}">Aggiungi stack</a>
         <thead>
             <tr>
                 <th scope="col">ID</th>
-                <th scope="col">Nome Progetto</th>
-                <th scope="col">Stack utilizzato</th>
-                <th scope="col">Linguaggi utilizzati</th>
-                <th scope="col">Data inizio progetto</th>
-                <th scope="col">Data fine progetto</th>
-                <th scope="col">Actions</th>
+                <th scope="col">Tipo di stack</th>
+
             </tr>
         </thead>
         <tbody>
-            @foreach ($projects as $project)
+            @foreach ($types as $type)
                 <tr>
-                    <th scope="row">{{ $project->id }}</th>
-                    <td>{{ $project->name }}</td>
-                    <td>{{ $project->type?->type_of_stack }}</td>
-                    <td>{{ $project->programming_languages_used }}</td>
-                    <td>{{ $project->start_date }}</td>
-                    <td>{{ $project->end_date }}</td>
+                    <th scope="row">{{ $type->id }}</th>
+                    <td>{{ $type->type_of_stack }}</td>
                     <td>
-                        <a href={{ route('admin.projects.show', $project) }} class="action-icon">
+                        <a href={{ route('admin.types.show', $type) }} class="action-icon">
                             <i class=" bi bi-eye mx-2"></i>
                         </a>
-                        <a href={{ route('admin.projects.edit', $project) }} class="action-icon">
+                        <a href={{ route('admin.types.edit', $type) }} class="action-icon">
                             <i class="bi bi-pencil mx-2"></i>
                         </a>
 
                         <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                            data-bs-target="#delete-modal-{{ $project->id }}">
+                            data-bs-target="#delete-modal-{{ $type->id }}">
                             <i class="bi bi-trash mx-2"></i>
                         </button>
-                        @foreach ($projects as $project)
+                        @foreach ($types as $type)
                             <!-- Modal -->
-                            <div class="modal fade" id="delete-modal-{{ $project->id }}" tabindex="-1"
-                                aria-labelledby="delete-modal-{{ $project->id }}-label" aria-hidden="true">
+                            <div class="modal fade" id="delete-modal-{{ $type->id }}" tabindex="-1"
+                                aria-labelledby="delete-modal-{{ $type->id }}-label" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="delete-modal-{{ $project->id }}-label">
+                                            <h1 class="modal-title fs-5" id="delete-modal-{{ $type->id }}-label">
                                                 Conferma eliminazione</h1>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                 aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body text-start">
-                                            Sei sicuro di voler eliminare il progetto <strong>{{ $project->name }}</strong>
+                                            Sei sicuro di voler eliminare il type
+                                            <strong>{{ $type->type_of_stack }}</strong>
                                             <br>
                                             L'operazione non è reversibile
                                         </div>
@@ -59,7 +52,7 @@
                                             <button type="button" class="btn btn-secondary"
                                                 data-bs-dismiss="modal">Annulla</button>
 
-                                            <form action="{{ route('admin.projects.destroy', $project) }}" method="POST"
+                                            <form action="{{ route('admin.types.destroy', $type) }}" method="POST"
                                                 class="">
                                                 @method('DELETE')
                                                 @csrf
@@ -76,5 +69,5 @@
             @endforeach
         </tbody>
     </table>
-    {{ $projects->links('pagination::bootstrap-5') }}
+    {{-- {{ $->links('pagination::bootstrap-5') }} --}}
 @endsection

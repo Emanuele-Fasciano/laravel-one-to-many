@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
@@ -19,7 +20,6 @@ class ProjectController extends Controller
     public function index()
     {
         $projects = Project::paginate(10);
-        return view('admin.projects.index', compact('projects'));
     }
 
     /**
@@ -29,7 +29,8 @@ class ProjectController extends Controller
      */
     public function create(Project $project)
     {
-        return view('admin.projects.create', compact('project'));
+        $types = Type::all();
+        return view('admin.projects.create', compact('project', 'types'));
     }
 
     /**
@@ -77,7 +78,8 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        return view('admin.projects.edit', compact('project'));
+        $types = Type::all();
+        return view('admin.projects.edit', compact('project', 'types'));
     }
 
     /**
@@ -137,6 +139,8 @@ class ProjectController extends Controller
                 'start_date' => 'required',
                 'end_date' => 'required',
                 'image' => 'nullable|image|mimes:jpg,jpeg,png',
+                // valido anche il campo type_id collegato alla tabella types e va aggiunto nel fillable
+                'type_id' => 'nullable|exists:types,id'
             ],
             [
                 'name.required' => 'Il nome del progetto è obbligatorio',
@@ -145,7 +149,8 @@ class ProjectController extends Controller
                 'start_date.required' => "Inserire la data di inizio progetto",
                 'end_date.required' => "Inserire la data di fine progetto",
                 'image.image' => "Il file inserito deve essere un'immagine",
-                'image.mimes' => "Il file deve essere nei seguenti formati:jpg,jpeg,png"
+                'image.mimes' => "Il file deve essere nei seguenti formati:jpg,jpeg,png",
+                'type_id.exists' => "L' ID selezionato non esiste"
 
             ]
         )->validate();

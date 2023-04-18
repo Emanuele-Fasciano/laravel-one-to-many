@@ -7,6 +7,10 @@
     <div class="card">
         <div class="card-body my-2">
             <h5 class="card-title my-2"><strong>Nome progetto:</strong> {{ $project->name }}</h5>
+            @if (isset($project->type->type_of_stack))
+                <h6 class="card-subtitle mb-2 my-2"><strong> Stack utilizzato:</strong> {{ $project->type->type_of_stack }}
+                </h6>
+            @endif
             <h6 class="card-subtitle mb-2 my-2"><strong> Linguaggi utilizzati:</strong>
                 {{ $project->programming_languages_used }}
             </h6>

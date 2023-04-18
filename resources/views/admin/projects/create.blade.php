@@ -36,16 +36,30 @@
                 <label for="end_date" class="form-label">Data fine</label>
                 <input type="date" class="form-control" id="end_date" name="end_date" alue="{{ old('end_date') }}" />
             </div>
-        </div>
-        <textarea class="col-10 my-4 ms-3" name="description" id="description" placeholder="Descrizione">{{ old('description') }}</textarea>
-        <div class="col-4">
-            <input type="file" name="image" id="image" class="form-control">
-        </div>
-        <div class="col-3">
-            <img src="{{ $project->getImageUri() }}" alt="" class="img-fluid my-3" id="image-preview">
-        </div>
+            <label for="description" class="form-label mt-4">Descrizione</label>
+            <textarea class="col-10 mb-4" name="description" id="description">{{ old('description') ?? $project->description }}</textarea>
+            <div class="row">
+                <div class="col-4">
+                    <label for="image" class="form-label">Carica un' immagine</label>
+                    <input type="file" name="image" id="image" class="form-control">
+                </div>
+                <div class="col-4 ms-5">
+                    <label for="type_id" class="form-label">Tipo di stack utilizzato</label>
 
-        <button type="submit" class="btn btn-primary mt-4">Salva</button>
+                    {{-- select per passarmi l'ID del type --}}
+                    <select class="form-select" name='type_id' id='type_id' aria-label="Default select example">
+                        @foreach ($types as $type)
+                            <option value="{{ $type->id }}" @if (old('type_id', $project->type_id) == $type->id) selected @endif>
+                                {{ $type->type_of_stack }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="col-3">
+                <img src="{{ $project->getImageUri() }}" alt="" class="img-fluid my-3" id="image-preview">
+                <button type="submit" class="btn btn-primary mb-3">Salva</button>
+            </div>
+
     </form>
 @endsection
 
