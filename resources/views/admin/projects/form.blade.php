@@ -23,33 +23,60 @@
     @csrf
 
     <div class="row">
-        <div class="col-5">
-            <label for="name" class="form-label">Nome progetto</label>
+        <div class="col-10">
+            <label for="name" class="form-label @error('name') is-invalid @enderror">Nome progetto</label>
             <input type="text" class="form-control" id="name" name="name"
                 value="{{ old('name') ?? $project->name }}" />
+            @error('name')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
         </div>
         <div class="col-5 mt-3">
-            <label for="start_date" class="form-label">Data di inzio</label>
+            <label for="start_date" class="form-label @error('start_date') is-invalid @enderror">Data di inzio</label>
             <input type="date" class="form-control" id="start_date" name="start_date"
                 value="{{ old('start_date') ?? $project->start_date }}" />
+            @error('start_date')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
         </div>
         <div class="col-5 my-3">
-            <label for="end_date" class="form-label">Data fine</label>
+            <label for="end_date" class="form-label @error('end_date') is-invalid @enderror">Data fine</label>
             <input type="date" class="form-control" id="end_date" name="end_date"
                 alue="{{ old('end_date') ?? $project->end_date }}" />
+            @error('end_date')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
         </div>
-        <label for="description" class="form-label mt-4">Descrizione</label>
-        <textarea class="col-10 mb-4" name="description" id="description">{{ old('description') ?? $project->description }}</textarea>
-        <div class="row">
+        <label for="description" class="form-label mt-4 @error('description') is-invalid @enderror">Descrizione</label>
+        <textarea class="col-10" name="description" id="description">{{ old('description') ?? $project->description }}</textarea>
+        @error('description')
+            <div class="invalid-feedback">
+                {{ $message }}
+            </div>
+        @enderror
+        <div class="row mt-4">
             <div class="col-4">
-                <label for="image" class="form-label">Carica un' immagine</label>
+                <label for="image" class="form-label @error('image') is-invalid @enderror">Carica un' immagine</label>
                 <input type="file" name="image" id="image" class="form-control">
+                @error('image')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
             <div class="col-4 ms-5">
-                <label for="type_id" class="form-label">Tipo di stack utilizzato</label>
+                <label for="type_id" class="form-label @error('type_id') is-invalid @enderror">Tipo di stack
+                    utilizzato</label>
 
                 {{-- select per passarmi l'ID del type --}}
-                <select class="form-select" name='type_id' id='type_id' aria-label="Default select example">
+                <select class="form-select @error('type_id') is-invalid @enderror" name='type_id' id='type_id'
+                    aria-label="Default select example">
                     <option value="">Non categorizzato</option>
                     @foreach ($types as $type)
                         <option value="{{ $type->id }}" @if (old('type_id', $project->type_id) == $type->id) selected @endif>

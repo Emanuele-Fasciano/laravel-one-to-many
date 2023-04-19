@@ -7,6 +7,7 @@ use App\Models\Project;
 use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -49,6 +50,7 @@ class ProjectController extends Controller
 
             // se il file c'è lo metto nello storage e lo assegno a una variabile che sarà il path da mettere nel db
             $path = Storage::put('uploads/project', $data['image']);
+            // Log::debug($path); visibili in storage/logs/laravel.log
         }
 
         $project = new Project;

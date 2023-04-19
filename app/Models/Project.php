@@ -24,4 +24,11 @@ class Project extends Model
     {
         return $this->belongsTo(Type::class);
     }
+
+    // relazione 1 a molti. Un progetto può avere un solo type
+
+    public function technologies()
+    {
+        return $this->belongsToMany(Technology::class);
+    }
 }
