@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::table('projects', function (Blueprint $table) {
             // aggiungo alla tabella 'projects' la chiave esterna 'type_id'
-            $table->foreignId('type_id')->nullable()->constrained();
+            $table->foreignId('type_id')->nullable()->constrained()->nullOnDelete();
         });
     }
 

@@ -20,6 +20,7 @@ class ProjectController extends Controller
     public function index()
     {
         $projects = Project::paginate(10);
+        return view('admin.projects.index', compact('projects'));
     }
 
     /**
@@ -135,7 +136,6 @@ class ProjectController extends Controller
             [
                 'name' => 'required',
                 'description' => 'required',
-                'programming_languages_used' => 'required',
                 'start_date' => 'required',
                 'end_date' => 'required',
                 'image' => 'nullable|image|mimes:jpg,jpeg,png',
@@ -145,7 +145,6 @@ class ProjectController extends Controller
             [
                 'name.required' => 'Il nome del progetto è obbligatorio',
                 'description.required' => "La descrizione è obbligatoria",
-                'programming_languages_used.required' => "Scrivere i linguaggi utilizzati",
                 'start_date.required' => "Inserire la data di inizio progetto",
                 'end_date.required' => "Inserire la data di fine progetto",
                 'image.image' => "Il file inserito deve essere un'immagine",

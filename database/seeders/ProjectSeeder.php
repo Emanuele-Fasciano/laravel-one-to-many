@@ -20,7 +20,6 @@ class ProjectSeeder extends Seeder
             $project = new Project;
             $project->name = $faker->words(3, true);
             $project->description = $faker->paragraph(5, false);
-            $project->programming_languages_used = $faker->words(5, true);
             $project->start_date = $faker->dateTimeThisYear();
             $project->end_date = $faker->dateTimeInInterval($project->start_date, '+1 week');
             // $project->image = $faker->imageUrl(360, 360, 'animals', true, 'cats');

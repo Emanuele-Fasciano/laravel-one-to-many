@@ -11,7 +11,6 @@
                 <th scope="col">ID</th>
                 <th scope="col">Nome Progetto</th>
                 <th scope="col">Stack utilizzato</th>
-                <th scope="col">Linguaggi utilizzati</th>
                 <th scope="col">Data inizio progetto</th>
                 <th scope="col">Data fine progetto</th>
                 <th scope="col">Actions</th>
@@ -23,7 +22,6 @@
                     <th scope="row">{{ $project->id }}</th>
                     <td>{{ $project->name }}</td>
                     <td>{{ $project->type?->type_of_stack }}</td>
-                    <td>{{ $project->programming_languages_used }}</td>
                     <td>{{ $project->start_date }}</td>
                     <td>{{ $project->end_date }}</td>
                     <td>

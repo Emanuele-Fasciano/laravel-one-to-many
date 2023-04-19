@@ -22,11 +22,6 @@
                 <label for="name" class="form-label">Nome progetto</label>
                 <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" />
             </div>
-            <div class="col-5">
-                <label for="programming_languages_used" class="form-label">Linguaggi utilizzati</label>
-                <input type="text" class="form-control" id="programming_languages_used" name="programming_languages_used"
-                    value="{{ old('programming_languages_used') }}" />
-            </div>
             <div class="col-5 mt-3">
                 <label for="start_date" class="form-label">Data di inzio</label>
                 <input type="date" class="form-control" id="start_date" name="start_date"

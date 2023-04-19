@@ -11,9 +11,6 @@
                 <h6 class="card-subtitle mb-2 my-2"><strong> Stack utilizzato:</strong> {{ $project->type->type_of_stack }}
                 </h6>
             @endif
-            <h6 class="card-subtitle mb-2 my-2"><strong> Linguaggi utilizzati:</strong>
-                {{ $project->programming_languages_used }}
-            </h6>
             <h6 class="card-subtitle mb-2 my-2"><strong> Data di inzio:</strong> {{ $project->start_date }}</h6>
             <h6 class="card-subtitle mb-2 my-2"><strong> Data fine:</strong> {{ $project->end_date }}</h6>
             <h6><strong>Descrizione:</strong></h6>
