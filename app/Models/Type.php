@@ -13,8 +13,5 @@ class Type extends Model
 
     // relazione 1 a molti. 1 type può avere molti progetti
 
-    public function projects()
-    {
-        return $this->hasMany(Project::class);
-    }
+
 }

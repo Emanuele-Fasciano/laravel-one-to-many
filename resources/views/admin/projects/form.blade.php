@@ -53,6 +53,16 @@
                 </div>
             @enderror
         </div>
+        <div class="col-10">
+            <label for="technology_id" class="form-label me-3 @error('technology_id') is-invalid @enderror">Tecnologie
+                utilizzate:</label> <br>
+            @foreach ($technologies as $technology)
+                <input type="checkbox" name="technology[]" id="technology{{ $technology->id }}"
+                    value="{{ $technology->id }}" class="form-check-control">
+                <label for="technology{{ $technology->id }}">{{ $technology->name }}</label> <br>
+            @endforeach
+
+        </div>
         <label for="description" class="form-label mt-4 @error('description') is-invalid @enderror">Descrizione</label>
         <textarea class="col-10" name="description" id="description">{{ old('description') ?? $project->description }}</textarea>
         @error('description')

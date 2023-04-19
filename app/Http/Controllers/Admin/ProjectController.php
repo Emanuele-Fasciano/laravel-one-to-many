@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use App\Models\Technology;
 use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -32,7 +33,8 @@ class ProjectController extends Controller
     public function create(Project $project)
     {
         $types = Type::all();
-        return view('admin.projects.form', compact('project', 'types'));
+        $technologies = Technology::orderBy('name')->get();
+        return view('admin.projects.form', compact('project', 'types', 'technologies'));
     }
 
     /**
@@ -82,7 +84,8 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
         $types = Type::all();
-        return view('admin.projects.form', compact('project', 'types'));
+        $technologies = Technology::orderBy('name')->get();
+        return view('admin.projects.form', compact('project', 'types', 'technologies'));
     }
 
     /**
@@ -94,6 +97,7 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
+        dd($request->all());
         $data = $this->validation($request->all(), $project->id);
 
 
@@ -107,6 +111,8 @@ class ProjectController extends Controller
             // se il file c'è lo metto nello storage e lo assegno a una variabile che sarà il path da mettere nel db
             $path = Storage::put('uploads/project', $data['image']);
             // $data['image'] = $path;
+        } else {
+            $path = false;
         }
 
         $project->fill($data);
