@@ -8,12 +8,47 @@
         <a class="btn btn-primary my-3" href="{{ route('admin.projects.create') }}">Aggiungi progetto</a>
         <thead>
             <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Nome Progetto</th>
+                <th scope="col">
+                    <a
+                        href="{{ route('admin.projects.index') }}?sort=id&order=@if ($sort == 'id' && $order != 'DESC') DESC @else ASC @endif">ID
+                        @if ($sort == 'id')
+                            <i
+                                class="bi bi-arrow-down d-inline-block @if ($order == 'DESC') rotate-180 @endif"></i>
+                        @endif
+                    </a>
+                </th>
+                <th scope="col">
+                    <a
+                        href="{{ route('admin.projects.index') }}?sort=name&order=@if ($sort == 'name' && $order != 'DESC') DESC @else ASC @endif">
+                        Nome Progetto
+                        @if ($sort == 'name')
+                            <i
+                                class="bi bi-arrow-down d-inline-block @if ($order == 'DESC') rotate-180 @endif"></i>
+                        @endif
+                    </a>
+                </th>
                 <th scope="col">Stack utilizzato</th>
                 <th scope="col">Tecnologie utilizzate</th>
-                <th scope="col">Data inizio progetto</th>
-                <th scope="col">Data fine progetto</th>
+                <th scope="col">
+                    <a
+                        href="{{ route('admin.projects.index') }}?sort=start_date&order=@if ($sort == 'start_date' && $order != 'DESC') DESC @else ASC @endif">
+                        Data inizio progetto
+                        @if ($sort == 'start_date')
+                            <i
+                                class="bi bi-arrow-down d-inline-block @if ($order == 'DESC') rotate-180 @endif"></i>
+                        @endif
+                    </a>
+                </th>
+                <th scope="col">
+                    <a
+                        href="{{ route('admin.projects.index') }}?sort=end_date&order=@if ($sort == 'end_date' && $order != 'DESC') DESC @else ASC @endif">
+                        Data fine progetto
+                        @if ($sort == 'end_date')
+                            <i
+                                class="bi bi-arrow-down d-inline-block @if ($order == 'DESC') rotate-180 @endif"></i>
+                        @endif
+                    </a>
+                </th>
                 <th scope="col">Actions</th>
             </tr>
         </thead>
