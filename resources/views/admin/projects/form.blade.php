@@ -46,19 +46,21 @@
         <div class="col-5 my-3">
             <label for="end_date" class="form-label @error('end_date') is-invalid @enderror">Data fine</label>
             <input type="date" class="form-control" id="end_date" name="end_date"
-                alue="{{ old('end_date') ?? $project->end_date }}" />
+                value="{{ old('end_date') ?? $project->end_date }}" />
             @error('end_date')
                 <div class="invalid-feedback">
                     {{ $message }}
                 </div>
             @enderror
         </div>
+
         <div class="col-10">
             <label for="technology_id" class="form-label me-3 @error('technology_id') is-invalid @enderror">Tecnologie
                 utilizzate:</label> <br>
             @foreach ($technologies as $technology)
                 <input type="checkbox" name="technology[]" id="technology{{ $technology->id }}"
-                    value="{{ $technology->id }}" class="form-check-control">
+                    value="{{ $technology->id }}" class="form-check-control"
+                    @if (in_array($technology->id, old('technology', $project_technology ?? []))) checked @endif>
                 <label for="technology{{ $technology->id }}">{{ $technology->name }}</label> <br>
             @endforeach
 

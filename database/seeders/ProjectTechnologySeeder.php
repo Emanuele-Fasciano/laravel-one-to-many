@@ -17,11 +17,13 @@ class ProjectTechnologySeeder extends Seeder
      */
     public function run(Faker $faker)
     {
-        // $technologies = Technology::all()->pluck('id');
+        $projects = Project::all();
+        $technologies = Technology::all()->pluck('id')->toArray();
 
-        // for ($i = 1; $i < 40; $i++) {
-        //     $projects = Technology::find($i);
-        //     $projects->technologies()->attach($faker->randomElements($technologies, 2));
-        // }
+        foreach ($projects as $project) {
+
+            $project->technologies()
+                ->attach($faker->randomElements($technologies, random_int(0, 3)));
+        }
     }
 }

@@ -9,7 +9,7 @@ class Project extends Model
 {
     use HasFactory;
 
-    protected $fillable = ["name", "programming_languages_used", "start_date", "end_date", "description", "type_id"];
+    protected $fillable = ["name", "programming_languages_used", "start_date", "end_date", "description", "type_id", "technologies"];
 
     // creo una funzione per recuperare il path dell'immagine correttamente 
     public function getImageUri()

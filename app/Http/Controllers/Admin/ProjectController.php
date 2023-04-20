@@ -53,6 +53,8 @@ class ProjectController extends Controller
             // se il file c'è lo metto nello storage e lo assegno a una variabile che sarà il path da mettere nel db
             $path = Storage::put('uploads/project', $data['image']);
             // Log::debug($path); visibili in storage/logs/laravel.log
+        } else {
+            $path = false;
         }
 
         $project = new Project;
@@ -61,6 +63,8 @@ class ProjectController extends Controller
         // prima di salvare il project assegno a  $project->image il valore di $path per visualizzare l'immagine
         $project->image = $path;
         $project->save();
+
+        if (Arr::exists($data, "technologies")) $project->technologies()->attach($data["technologies"]);
         return to_route('admin.projects.show', $project);
     }
 
@@ -97,8 +101,8 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
-        dd($request->all());
         $data = $this->validation($request->all(), $project->id);
+        // dd($data);
 
 
 
@@ -119,6 +123,13 @@ class ProjectController extends Controller
         // prima di salvare il project assegno a  $project->image il valore di $path per visualizzare l'immagine
         $project->image = $path;
         $project->save();
+
+        if (Arr::exists($data, "technology"))
+            $project->technologies()->sync($data["technology"]);
+        else
+            $project->technologies()->detach();
+
+
         return to_route('admin.projects.show', $project);
     }
 
@@ -145,19 +156,22 @@ class ProjectController extends Controller
                 'name' => 'required',
                 'description' => 'required',
                 'start_date' => 'required',
-                'end_date' => 'required',
+                'end_date' => 'required|date|after:start_date',
                 'image' => 'nullable|image|mimes:jpg,jpeg,png',
                 // valido anche il campo type_id collegato alla tabella types e va aggiunto nel fillable
-                'type_id' => 'nullable|exists:types,id'
+                'type_id' => 'nullable|exists:types,id',
+                'technology' => 'exists:technologies,id',
             ],
             [
                 'name.required' => 'Il nome del progetto è obbligatorio',
                 'description.required' => "La descrizione è obbligatoria",
                 'start_date.required' => "Inserire la data di inizio progetto",
                 'end_date.required' => "Inserire la data di fine progetto",
+                'end_date.after' => "La data di fine deve essere succesiva alla data di inzio",
                 'image.image' => "Il file inserito deve essere un'immagine",
                 'image.mimes' => "Il file deve essere nei seguenti formati:jpg,jpeg,png",
-                'type_id.exists' => "L' ID selezionato non esiste"
+                'type_id.exists' => "L' ID selezionato non esiste",
+                'technology.exists' => 'Le tecnologie selezionate non sono valide'
 
             ]
         )->validate();
