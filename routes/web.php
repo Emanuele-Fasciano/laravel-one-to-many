@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [GuestHomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'index'])->name('homepage');
 
 Route::get('/home', [AdminHomeController::class, 'index'])->middleware(['auth', 'verified'])->name('home');
 
